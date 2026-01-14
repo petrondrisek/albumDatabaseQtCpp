@@ -5,13 +5,20 @@ import QtQuick.Layouts 1.15
 import Enums 1.0
 
 Rectangle {
-    id: modal
     anchors.fill: parent
+
+    id: modal
+
     color: themeManager.currentTheme === Theme.LIGHT ? "#DDFFFFFF" : "#DD000000"
+
     visible: opacity > 0.01
     opacity: 0
+
     z: 1000
 
+    default property alias content: contentItem.data // Child content
+
+    // Open/Hide modal functions
     function show() {
         modal.opacity = 1
     }
@@ -20,6 +27,7 @@ Rectangle {
         modal.opacity = 0
     }
 
+    // Animation on show/hide for overlay
     Behavior on opacity {
         NumberAnimation {
             duration: 300
@@ -27,24 +35,25 @@ Rectangle {
         }
     }
 
-    default property alias content: contentItem.data
-
     // Blocks clicking on elements behind z-index
     MouseArea {
         anchors.fill: parent
         onClicked: modal.hide()
     }
 
+    // Close button
     Button {
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.margins: 12
+
         background: Rectangle {
-            id: closeButtonArea
             color: "transparent"
         }
+
         contentItem: Text {
             id: closeButtonText
+
             property bool hovered: false
             property real scaleFactor: hovered ? 1.2 : 1
 
@@ -61,6 +70,7 @@ Rectangle {
                 origin.y: closeButtonText.height/2
             }
 
+            // Animations
             Behavior on color {
                 ColorAnimation {
                     duration: 200
@@ -87,9 +97,11 @@ Rectangle {
         }
     }
 
+    // Modal frame/window
     Frame {
-        id: frame
         anchors.centerIn: parent
+
+        id: frame
 
         width: parent.width - 200
         height: parent.height - 200
@@ -99,7 +111,6 @@ Rectangle {
         property real offsetY: displayed ? 0 : -24
 
         transform: Translate {
-            id: translate
             y: frame.offsetY
         }
 
@@ -110,29 +121,35 @@ Rectangle {
             }
         }
 
-        // background
+        // frame background
         background: Rectangle {
             id: frameRect
+
             color: Material.background
-            radius: 6
             border.width: 1
             border.color: Material.color(Material.Grey)
+            radius: 6
         }
 
+        // Scroll area, where child content is put in.
         ScrollView {
-            id: scrollView
             anchors.fill: parent
-            clip: true
+
+            id: scrollView
+
             contentHeight: contentItem.implicitHeight + 56 // base fix for top/bottom margin
+            clip: true
 
             ColumnLayout {
-                id: contentItem
-                width: scrollView.width - 56  // width - padding
                 anchors.left: parent.left
                 anchors.leftMargin: 28
                 anchors.top: parent.top
                 anchors.topMargin: 28
                 anchors.bottomMargin: 28
+
+                id: contentItem
+
+                width: scrollView.width - 56  // width - padding
                 spacing: 12
             }
         }

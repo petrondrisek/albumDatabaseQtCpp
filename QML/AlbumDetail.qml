@@ -4,48 +4,51 @@ import QtQuick.Layouts 1.15
 
 Item {
     id: root
+    implicitWidth: layout.implicitWidth
+    implicitHeight: layout.implicitHeight
 
     property var selectedModel // { id, name, author, year, genre }
     property var selectedSong // { id, name, length }
 
-    // signals currently have no deeper meaning
+    // signals without deeper meaning
     signal songAdded(int songId)
     signal songDeleted(int songId)
     // -----
     signal albumDeleted(int albumId)
     signal editAlbum(var selectedModel)
 
-    implicitWidth: layout.implicitWidth
-    implicitHeight: layout.implicitHeight
-
     ColumnLayout {
-        id: layout
-        spacing: 20
         anchors.fill: parent
         anchors.bottomMargin: 60
 
-        // About album - image + basic info
+        id: layout
+        spacing: 20
+
+        // About album - image + info
         RowLayout {
-            spacing: 24
             Layout.fillWidth: true
             Layout.minimumHeight: 320
 
+            spacing: 24
+
             // Image
             Item {
-                Layout.preferredWidth: 300
                 Layout.minimumWidth: 200
+                Layout.preferredWidth: 300
                 Layout.maximumWidth: 350
                 Layout.minimumHeight: 300
                 Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
 
                 Image {
+                    anchors.centerIn: parent
+
                     id: albumWrapperImage
+
                     fillMode: Image.PreserveAspectFit
                     source: selectedModel && selectedModel.id ? imageFile.get_image(selectedModel.id) : ""
                     asynchronous: true
                     cache: false
 
-                    anchors.centerIn: parent
                     width: parent.width
                     height: 300
                     opacity: status === Image.Ready ? 1 : 0
@@ -59,12 +62,13 @@ Item {
 
                 // Default if image is not set.
                 Label {
+                    anchors.centerIn: parent
+
                     text: "🎵"
                     color: Material.accent
                     font.pixelSize: 120
 
                     visible: albumWrapperImage.status !== Image.Ready
-                    anchors.centerIn: parent
                     opacity: visible ? 1 : 0
 
                     Behavior on opacity {
@@ -78,6 +82,7 @@ Item {
             // Info
             ColumnLayout {
                 Layout.fillWidth: true
+
                 spacing: 12
 
                 Repeater {
@@ -91,16 +96,21 @@ Item {
                     delegate: ColumnLayout {
                         spacing: 4
 
+                        // Model item label
                         Label {
+                            Layout.fillWidth: true
+
                             text: modelData.label
                             color: Material.accent
                             font.bold: true
                         }
 
+                        // Model item value
                         Label {
+                            Layout.fillWidth: true
+
                             text: modelData.value
                             wrapMode: Text.WordWrap
-                            Layout.fillWidth: true
                         }
                     }
                 }
@@ -114,6 +124,7 @@ Item {
                     // Edit
                     Button {
                         Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+
                         text: qsTr("Edit album")
                         onClicked: editAlbum(root.selectedModel)
                     }
@@ -121,6 +132,7 @@ Item {
                     // Delete
                     DestructiveButton {
                         Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+
                         text: qsTr("Delete album")
                         onClicked: {
                             if(selectedModel && selectedModel.id) {
@@ -134,22 +146,24 @@ Item {
             }
         }
 
-        // Action panel for adding new song
+        // Panel for adding new song
         RowLayout {
             Layout.fillWidth: true
             Layout.topMargin: 12
             Layout.preferredHeight: 60
 
             ValidationTextField {
-                label: qsTr("Song name")
-                id: inputName
                 Layout.fillWidth: true
+
+                id: inputName
+                label: qsTr("Song name")
             }
 
             ValidationTextField {
-                label: qsTr("Length")
-                id: inputLength
                 Layout.fillWidth: true
+
+                id: inputLength
+                label: qsTr("Length")
                 validationFn: function(text) {
                     let valid = true
                     let error = ""
@@ -165,6 +179,7 @@ Item {
 
             Button {
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+
                 text: qsTr("Add song")
                 onClicked: {
                     inputName.validate()
@@ -188,11 +203,12 @@ Item {
 
         // List of stored songs
         ListView {
-            id: songList
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.minimumHeight: db.songs.length ? 300 : 0
             Layout.margins: 12
+
+            id: songList
             model: db.songs // { id, name, length }
 
             delegate: Rectangle {
@@ -209,24 +225,27 @@ Item {
 
                     // Song name
                     Label {
-                        text: modelData ? modelData.name : qsTr("Unknown")
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                         Layout.leftMargin: 12
+
+                        text: modelData ? modelData.name : qsTr("Unknown")
                     }
 
                     // Song duration
                     Label {
-                        text: modelData ? modelData.length : qsTr("00:00")
                         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                         Layout.rightMargin: 12
+
+                        text: modelData ? modelData.length : qsTr("00:00")
                     }
 
                     // Delete button for song on this row
                     DestructiveButton {
-                        text: qsTr("Delete")
                         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                         Layout.rightMargin: 12
+
+                        text: qsTr("Delete")
                         onClicked: {
                             if(modelData && modelData.id) {
                                 deleteDialog.type = "song"
@@ -245,28 +264,30 @@ Item {
             }
         }
 
+        // Displays when songs count = 0
         Label {
+            Layout.fillWidth: true
+
             text: qsTr("No songs found")
             font.pixelSize: 24
             font.bold: true
             color: Material.color(Material.Grey)
-            Layout.fillWidth: true
-            visible: songList.count === 0
             horizontalAlignment: Text.AlignHCenter
+            visible: songList.count === 0
         }
     }
 
+    // Confirm dialog for deletion
     Dialog {
+        anchors.centerIn: Overlay.overlay
+
         id: deleteDialog
+        modal: true
+        standardButtons: Dialog.Yes | Dialog.No
+        title: qsTr("Confirm")
 
         property string type: "album"
         property string name: "N/A"
-
-        title: qsTr("Confirm")
-        modal: true
-        anchors.centerIn: Overlay.overlay
-
-        standardButtons: Dialog.Yes | Dialog.No
 
         onAccepted: {
            if(type === "album") {
@@ -281,11 +302,13 @@ Item {
         ColumnLayout {
             spacing: 12
 
+            // Header
             Label {
                 text: qsTr("Are you sure you want to delete %1?").arg(deleteDialog.type)
                 font.bold: true
             }
 
+            // Body
             Label {
                 text: deleteDialog.name
                 color: Material.accent

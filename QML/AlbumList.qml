@@ -9,31 +9,36 @@ Item {
     signal albumShowDetail(var album)
 
     GridView {
-        id: albumGrid
         anchors.fill: parent
         anchors.margins: 12
 
+        id: albumGrid
+        model: db.albums // { id, name, author, year, genre }
+
         cellWidth: 292
         cellHeight: 320
-        model: db.albums // { id, name, author, year, genre }
         clip: true
 
+        // Center items
         readonly property int columns: Math.floor(width / cellWidth)
         contentItem.x: albumGrid.width % (columns * albumGrid.cellWidth) / 2
 
         delegate: Item {
             id: albumDelegate
+
             width: albumGrid.cellWidth
             height: albumGrid.cellHeight
 
             property int albumId: modelData && modelData.id ? modelData.id : -1
             property string imageUrl: modelData && modelData.id ? imageFile.get_image(modelData.id) : ""
 
+            // Item area
             Rectangle {
                 anchors.centerIn: parent
 
                 width: albumGrid.cellWidth - 12
                 height: albumGrid.cellHeight - 12
+                clip: true
 
                 color: "transparent"
                 border.color: mouseArea.containsMouse
@@ -41,7 +46,6 @@ Item {
                               : Material.color(Material.Grey)
                 border.width: 1
                 radius: 4
-                clip: true
 
                 // Animation border
                 Behavior on border.color {
@@ -64,24 +68,29 @@ Item {
                     }
                 }
 
+                // Item image
                 Item {
+                    anchors.horizontalCenter: parent.horizontalCenter
+
                     id: albumWrapper
+
                     x: 0
                     y: 4
                     height: albumGrid.cellHeight * 0.75
                     width: albumGrid.cellWidth - 16
-                    anchors.horizontalCenter: parent.horizontalCenter
                     clip: true
 
                     Image {
                         id: albumCover
+
                         width: albumWrapper.width
                         height: albumWrapper.height
                         fillMode: Image.PreserveAspectFit
 
+                        source: albumDelegate.imageUrl
                         asynchronous: true
                         cache: false
-                        source: albumDelegate.imageUrl
+
                         opacity: status === Image.Ready ? 1 : 0
 
                         Behavior on opacity {
@@ -94,9 +103,11 @@ Item {
                     // Default when image is not set
                     Label {
                         anchors.centerIn: parent
+
                         text: "N/A"
                         color: Material.color(Material.Grey)
                         font.pixelSize: 72
+
                         visible: albumCover.status !== Image.Ready
                         opacity: visible ? 1 : 0
 
@@ -110,18 +121,21 @@ Item {
 
                 // Album name
                 Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+
                     id: albumName
-                    text: modelData.name
-                    color: mouseArea.containsMouse ? Material.accent : Material.color(Material.Grey)
+
                     x: 0
                     y: albumGrid.cellHeight * 0.8
                     height: albumGrid.height * 0.2
                     width: albumGrid.cellWidth - 32
-                    font.bold: true
-                    font.pixelSize: 16
-                    anchors.horizontalCenter: parent.horizontalCenter
                     maximumLineCount: 1
                     elide: Text.ElideRight
+
+                    text: modelData.name
+                    color: mouseArea.containsMouse ? Material.accent : Material.color(Material.Grey)
+                    font.bold: true
+                    font.pixelSize: 16
                     horizontalAlignment: Text.AlignHCenter
 
                     Behavior on color {
@@ -133,15 +147,17 @@ Item {
 
                 // Album author
                 Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+
                     property int topMargin: 4
 
-                    text: modelData.author
-                    color: Material.color(Material.Grey)
                     x: 0
                     y: albumGrid.cellHeight * 0.8 + (topMargin + albumName.font.pixelSize)
                     height: albumGrid.height * 0.2
                     width: albumGrid.cellWidth - 32
-                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    text: modelData.author
+                    color: Material.color(Material.Grey)
                     horizontalAlignment: Text.AlignHCenter
                     maximumLineCount: 1
                     elide: Text.ElideRight
@@ -157,11 +173,13 @@ Item {
                     width: 140
                     height: 28
 
-                    color: Material.accent
                     rotation: -45
+
+                    color: Material.accent
 
                     Label {
                         anchors.centerIn: parent
+
                         text: modelData
                               ? modelData.genre
                               : ""
@@ -180,21 +198,24 @@ Item {
         }
     }
 
+    // Display when album count == 0
     ColumnLayout {
         anchors.centerIn: parent
+
         visible: albumGrid.count === 0
         spacing: 16
 
         Label {
+            Layout.alignment: Qt.AlignHCenter
+
             text: qsTr("No albums found")
             font.pixelSize: 24
             font.bold: true
             color: Material.color(Material.Grey)
-            Layout.alignment: Qt.AlignHCenter
         }
     }
 
-    // Load image asynchronously after uploading while adding new album
+    // Loads image asynchronously after uploading
     Connections {
         target: imageFile
 

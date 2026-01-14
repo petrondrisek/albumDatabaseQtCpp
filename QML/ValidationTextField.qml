@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.15
 
 Item {
     id: field
+
     implicitHeight: layout.implicitHeight
     implicitWidth: layout.implicitWidth
 
@@ -24,10 +25,12 @@ Item {
         spacing: 4
 
         TextField {
+            Layout.fillWidth: true
+
             id: input
+
             placeholderText: field.label
             text: field.defaultValue
-            Layout.fillWidth: true
             maximumLength: field.maximumLength
 
             onEditingFinished: field.validate()
@@ -43,11 +46,13 @@ Item {
             }
         }
 
+        // Error label, display only when property error is not empty
         Label {
             text: field.error
             color: Material.color(Material.Red)
-            visible: !field.valid
             font.pixelSize: 12
+
+            visible: !field.valid
         }
     }
 

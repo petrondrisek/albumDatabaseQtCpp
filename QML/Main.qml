@@ -7,21 +7,24 @@ import Enums 1.0
 
 ApplicationWindow {
     id: main
-    width: 1220
+
     minimumWidth: 800
-    height: 720
+    width: 1220
     minimumHeight: 600
+    height: 720
+
     visible: true
+
     title: qsTr("CD database")
 
     Material.theme: themeManager.currentTheme === Theme.LIGHT ? Material.Light : Material.Dark
     Material.primary: Material.Indigo
     Material.accent: Material.Blue
 
-    menuBar: AppMenuBar { }
-
     property string modalType: "add"
     property var selectedAlbum
+
+    menuBar: AppMenuBar { }
 
     Modal {
         id: modal
@@ -30,11 +33,13 @@ ApplicationWindow {
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
             Layout.fillWidth: true
+
             spacing: 12
 
-            // Add new album (visible if modal_type = add)
+            // Add new album (visible if modalType == add)
             AddAlbumForm {
                 Layout.fillWidth: true
+
                 visible: main.modalType == "add"
 
                 // Signal
@@ -49,28 +54,32 @@ ApplicationWindow {
                 }
             }
 
-            // Detail of selected album (visible if model_type = detail)
+            // Detail of selected album (visible if modelType == detail)
             AlbumDetail {
-                id: albumDetail
                 Layout.fillWidth: true
+
                 visible: main.modalType == "detail"
                 selectedModel: main.selectedAlbum
 
+                // Signal
                 onEditAlbum: (album) => {
                     main.modalType = "edit"
                     main.selectedAlbum = album
                 }
 
+                // Signal
                 onAlbumDeleted: () => {
                     main.selectedAlbum = null
                     main.modalType = "add"
+
                     modal.hide()
                 }
             }
 
-            // Edit album
+            // Edit album (visible if modalType == edit)
             EditAlbumForm {
                 Layout.fillWidth: true
+
                 visible: main.modalType == "edit"
                 selectedModel: main.selectedAlbum
 
@@ -89,6 +98,7 @@ ApplicationWindow {
                         }
 
                         modal.hide()
+
                         // Update selected album
                         main.selectedAlbum.name = name
                         main.selectedAlbum.author = author
@@ -108,14 +118,16 @@ ApplicationWindow {
         RowLayout {
             Layout.fillWidth: true
             Layout.topMargin: 24
+
             spacing: 12
 
             // App name
             Label {
+                Layout.leftMargin: 24
+
                 text: qsTr("CD DATABASE")
                 font.pixelSize: 28
                 font.bold: true
-                Layout.leftMargin: 24
                 color: Material.accent
             }
 
@@ -124,7 +136,7 @@ ApplicationWindow {
                 Layout.fillWidth: true
             }
 
-            // Add new album
+            // Add new album button
             Button {
                 Layout.rightMargin: 24
 

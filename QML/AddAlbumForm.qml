@@ -10,34 +10,40 @@ Item {
     signal submit(var name, var author, var year, var genre, var image)
 
     ColumnLayout {
-        id: layout
         anchors.fill: parent
+
+        id: layout
+
         spacing: 20
 
         // Header
         Label {
+            Layout.bottomMargin: 12
+
             text: qsTr("Add new album")
             font.pixelSize: 18
             font.bold: true
-            anchors.bottomMargin: 12
         }
 
         // Inputs
         ValidationTextField {
-            id: inputName
             Layout.fillWidth: true
+
+            id: inputName
             label: qsTr("Album name")
         }
 
         ValidationTextField {
-            id: inputAuthor
             Layout.fillWidth: true
+
+            id: inputAuthor
             label: qsTr("Author")
         }
 
         ValidationTextField {
-            id: inputYear
             Layout.fillWidth: true
+
+            id: inputYear
             label: qsTr("Year")
             validationFn: function(text) {
                 let valid = true;
@@ -53,13 +59,15 @@ Item {
         }
 
         GenreSelectInput {
-            id: selectGenre
             Layout.fillWidth: true
+
+            id: selectGenre
         }
 
         ImageSelectInput {
-            id: imageInput
             Layout.fillWidth: true
+
+            id: imageInput
         }
 
         Button {

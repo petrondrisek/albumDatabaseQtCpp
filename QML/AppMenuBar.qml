@@ -28,7 +28,6 @@ MenuBar {
             checked: languageManager.currentLanguage === Language.CZECH
             checkable: true
             ActionGroup.group: languageGroup
-
             onTriggered: languageManager.currentLanguage = Language.CZECH
         }
 
@@ -38,7 +37,6 @@ MenuBar {
             checked: languageManager.currentLanguage === Language.ENGLISH
             checkable: true
             ActionGroup.group: languageGroup
-
             onTriggered: languageManager.currentLanguage = Language.ENGLISH
         }
     }
@@ -58,7 +56,6 @@ MenuBar {
             checkable: true
             checked: themeManager.currentTheme === Theme.LIGHT
             ActionGroup.group: themeGroup
-
             onTriggered: themeManager.currentTheme = Theme.LIGHT
         }
 
@@ -68,7 +65,6 @@ MenuBar {
             checkable: true
             checked: themeManager.currentTheme === Theme.DARK
             ActionGroup.group: themeGroup
-
             onTriggered: themeManager.currentTheme = Theme.DARK
         }
     }

@@ -111,7 +111,6 @@ void Database::fetch_albums(const QString &author, const QString &year, const QS
         return;
     }
 
-
     QVariantList results;
     QSqlQuery query(db);
 

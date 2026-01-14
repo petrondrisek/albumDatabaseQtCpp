@@ -10,10 +10,13 @@ Item {
     property string imageUrl: ""
 
     RowLayout {
-        id: layout
-        spacing: 12
         anchors.fill: parent
 
+        id: layout
+
+        spacing: 12
+
+        // File dialog and open button
         Button {
             text: qsTr("Select image")
             onClicked: fileDialog.open()
@@ -30,8 +33,10 @@ Item {
             }
         }
 
-        Button {
+        // Clear button, displays only when image is selected
+        DestructiveButton {
             visible: imageUrl.length > 0
+
             text: qsTr("Clear")
 
             onClicked: {
@@ -39,51 +44,34 @@ Item {
             }
         }
 
+        // Preview image box, displays only when image is selected
         Rectangle {
-            visible: imageUrl.length > 0
-
             Layout.preferredWidth: 100
             Layout.preferredHeight: 100
 
-            radius: 4
+            visible: imageUrl.length > 0
+
             border.width: 1
             border.color: Material.color(Material.Grey, Material.Shade400)
+            radius: 4
 
             Image {
-                id: previewImage
-
                 anchors.fill: parent
                 anchors.margins: 4
 
-                fillMode: Image.PreserveAspectFit
+                id: previewImage
+
                 source: imageUrl
+                fillMode: Image.PreserveAspectFit
                 asynchronous: true
+                cache: false
+
                 opacity: status === Image.Ready ? 1.0 : 0.0
 
                 Behavior on opacity {
                     NumberAnimation {
                         duration: 200
                     }
-                }
-            }
-
-            BusyIndicator {
-                anchors.centerIn: parent
-
-                running: previewImage.status === Image.Loading
-                visible: running
-
-                width: 40
-                height: 40
-
-                Rectangle {
-                    anchors.centerIn: parent
-                    width: parent.width + 8
-                    height: parent.height + 8
-                    radius: width / 2
-                    color: Material.background
-                    opacity: 0.8
-                    z: -1
                 }
             }
         }

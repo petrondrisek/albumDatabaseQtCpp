@@ -4,8 +4,10 @@ import QtQuick.Layouts 1.15
 
 RowLayout {
     id: root
+
     spacing: 12
 
+    // Debounce
     property int searchDebounceMs: 800
 
     Timer {
@@ -15,10 +17,12 @@ RowLayout {
         onTriggered: root.search()
     }
 
+    // Form
     TextField {
+        Layout.fillWidth: true
+
         id: authorInput
         placeholderText: qsTr("Search author")
-        Layout.fillWidth: true
 
         // Debounce while writing
         onTextChanged: {
@@ -33,7 +37,10 @@ RowLayout {
     }
 
     ValidationTextField {
+        Layout.fillWidth: true
+
         id: yearInput
+
         label: qsTr("Search year")
         validationFn: function(text) {
             let valid = true;
@@ -46,23 +53,28 @@ RowLayout {
 
             return { valid, error }
         }
+
+        // Debounce while writing
         onTextChanged: () => {
             searchDebounceTimer.restart()
         }
+
+        // Immediately searches when pressing enter
         onAccepted: () => {
             searchDebounceTimer.stop()
             root.search()
         }
-
-        Layout.fillWidth: true
     }
 
     GenreSelectInput {
-        id: genreSelect
         Layout.fillWidth: true
+
+        id: genreSelect
+
         validationFn: function(text) {
             return { valid: true, error: "" }
         }
+
         onTextChanged: () => {
             root.search()
         }

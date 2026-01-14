@@ -28,28 +28,32 @@ Item {
     ]
 
     ColumnLayout {
-        id: layout
         anchors.fill: parent
+
+        id: layout
+
         spacing: 4
 
+        // Select box
         ComboBox {
-            id: genreSelect
             Layout.fillWidth: true
 
+            id: genreSelect
             model: field.model
-            currentIndex: field.defaultIndex
 
+            currentIndex: field.defaultIndex
             onCurrentTextChanged: {
                 field.validate()
                 field.textChanged()
             }
         }
 
+        // Error label
         Label {
             text: field.error
             color: Material.color(Material.Red)
-            visible: !field.valid
             font.pixelSize: 12
+            visible: !field.valid
         }
     }
 

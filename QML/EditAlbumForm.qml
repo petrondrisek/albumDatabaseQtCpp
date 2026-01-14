@@ -11,37 +11,44 @@ Item {
     signal submit(var name, var author, var year, var genre, var image)
 
     ColumnLayout {
-        id: layout
         anchors.fill: parent
+
+        id: layout
+
         spacing: 20
 
         // Header
         Label {
+            Layout.bottomMargin: 12
+
             text: qsTr("Edit album")
             font.pixelSize: 18
             font.bold: true
-            anchors.bottomMargin: 12
         }
 
         // Inputs
         ValidationTextField {
-            id: inputName
             Layout.fillWidth: true
+
+            id: inputName
             label: qsTr("Album name")
             defaultValue: selectedModel && selectedModel.name ? selectedModel.name : ""
         }
 
         ValidationTextField {
-            id: inputAuthor
             Layout.fillWidth: true
+
+            id: inputAuthor
             label: qsTr("Author")
             defaultValue: selectedModel && selectedModel.author ? selectedModel.author : ""
         }
 
         ValidationTextField {
-            id: inputYear
             Layout.fillWidth: true
+
+            id: inputYear
             label: qsTr("Year")
+            defaultValue: selectedModel && selectedModel.year ? selectedModel.year : ""
             validationFn: function(text) {
                 let valid = true;
                 let error = "";
@@ -53,18 +60,19 @@ Item {
 
                 return { valid, error };
             }
-            defaultValue: selectedModel && selectedModel.year ? selectedModel.year : ""
         }
 
         GenreSelectInput {
-            id: selectGenre
             Layout.fillWidth: true
+
+            id: selectGenre
             defaultIndex: selectedModel && selectedModel.genre ? selectGenre.model.indexOf(selectedModel.genre) : 0
         }
 
         ImageSelectInput {
-            id: imageInput
             Layout.fillWidth: true
+
+            id: imageInput
             imageUrl: selectedModel && selectedModel.id ? imageFile.get_image(selectedModel.id) : ""
         }
 
