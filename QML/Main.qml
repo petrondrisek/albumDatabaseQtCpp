@@ -8,7 +8,7 @@ import Enums 1.0
 ApplicationWindow {
     id: main
 
-    minimumWidth: 800
+    minimumWidth: 900
     width: 1220
     minimumHeight: 600
     height: 720
@@ -44,10 +44,10 @@ ApplicationWindow {
 
                 // Signal
                 onSubmit: (name, author, year, genre, image) => {
-                    let id = db.insert_album(name, author, year, genre)
+                    let id = db.insertAlbum(name, author, year, genre)
 
                     if(image) {
-                        imageFile.upload_image(image, id)
+                        imageFile.uploadImage(image, id)
                     }
 
                     modal.hide()
@@ -62,9 +62,9 @@ ApplicationWindow {
                 selectedModel: main.selectedAlbum
 
                 // Signal
-                onEditAlbum: (album) => {
-                    main.modalType = "edit"
+                onEditAlbum: (album) => {             
                     main.selectedAlbum = album
+                    main.modalType = "edit"
                 }
 
                 // Signal
@@ -84,16 +84,16 @@ ApplicationWindow {
                 selectedModel: main.selectedAlbum
 
                 // Signal
-                onSubmit: (name, author, year, genre, image) => {
+                onSubmit: (name, author, year, genre, image, imageChanged) => {
                     if(main.selectedAlbum && main.selectedAlbum.id){
                         let id = main.selectedAlbum.id
-                        let del = db.update_album(id, name, author, year, genre)
+                        let del = db.updateAlbum(id, name, author, year, genre)
 
-                        if(del) {
+                        if(del && imageChanged) {
                             if(image) {
-                                imageFile.upload_image(image, id)
+                                imageFile.uploadImage(image, id)
                             } else {
-                                imageFile.delete_image(id)
+                                imageFile.deleteImage(id)
                             }
                         }
 

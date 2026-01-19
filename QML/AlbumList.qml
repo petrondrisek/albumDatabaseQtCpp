@@ -30,7 +30,8 @@ Item {
             height: albumGrid.cellHeight
 
             property int albumId: modelData && modelData.id ? modelData.id : -1
-            property string imageUrl: modelData && modelData.id ? imageFile.get_image(modelData.id) : ""
+            property string imageUrl: modelData && modelData.id ? imageFile.getImage(modelData.id) : ""
+            property int imageVer: 0
 
             // Item area
             Rectangle {
@@ -63,7 +64,7 @@ Item {
                     onClicked: {
                         if (modelData && modelData.id) {
                             root.albumShowDetail(db.albums[index])
-                            db.fetch_album_songs(modelData.id) // fetch selected album songs list
+                            db.fetchSongs(modelData.id) // fetch selected album songs list
                         }
                     }
                 }
@@ -88,6 +89,8 @@ Item {
                         fillMode: Image.PreserveAspectFit
 
                         source: albumDelegate.imageUrl
+                                ? albumDelegate.imageUrl + "?v=" + albumDelegate.imageVer
+                                : ""
                         asynchronous: true
                         cache: false
 
@@ -219,11 +222,14 @@ Item {
     Connections {
         target: imageFile
 
-        function onImageReady(album_id) {
+        function onImageReady(albumId) {
             for (let i = 0; i < albumGrid.count; ++i) {
                 let item = albumGrid.itemAtIndex(i)
-                if (item && item.albumId === album_id) {
-                    item.imageUrl = imageFile.get_image(album_id)
+
+                if (item && item.albumId === albumId) {
+                    item.imageUrl = imageFile.getImage(albumId)
+                    item.imageVer += 1
+                    break;
                 }
             }
         }

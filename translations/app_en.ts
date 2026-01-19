@@ -4,27 +4,32 @@
 <context>
     <name>AddAlbumForm</name>
     <message>
-        <location filename="../QML/AddAlbumForm.qml" line="19"/>
+        <location filename="../QML/AddAlbumForm.qml" line="23"/>
         <source>Add new album</source>
         <translation>Add new album</translation>
     </message>
     <message>
-        <location filename="../QML/AddAlbumForm.qml" line="29"/>
+        <location filename="../QML/AddAlbumForm.qml" line="33"/>
         <source>Album name</source>
         <translation>Album name</translation>
     </message>
     <message>
-        <location filename="../QML/AddAlbumForm.qml" line="35"/>
+        <location filename="../QML/AddAlbumForm.qml" line="40"/>
         <source>Author</source>
         <translation>Author</translation>
     </message>
     <message>
-        <location filename="../QML/AddAlbumForm.qml" line="41"/>
+        <location filename="../QML/AddAlbumForm.qml" line="47"/>
         <source>Year</source>
         <translation>Year</translation>
     </message>
     <message>
-        <location filename="../QML/AddAlbumForm.qml" line="66"/>
+        <location filename="../QML/AddAlbumForm.qml" line="54"/>
+        <source>This field can only contains numbers.</source>
+        <translation>This field can only contains numbers.</translation>
+    </message>
+    <message>
+        <location filename="../QML/AddAlbumForm.qml" line="74"/>
         <source>Add album</source>
         <translation>Add album</translation>
     </message>
@@ -36,10 +41,10 @@
         <translation type="vanished">Album name: </translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="85"/>
-        <location filename="../QML/AlbumDetail.qml" line="86"/>
-        <location filename="../QML/AlbumDetail.qml" line="87"/>
-        <location filename="../QML/AlbumDetail.qml" line="88"/>
+        <location filename="../QML/AlbumDetail.qml" line="90"/>
+        <location filename="../QML/AlbumDetail.qml" line="91"/>
+        <location filename="../QML/AlbumDetail.qml" line="92"/>
+        <location filename="../QML/AlbumDetail.qml" line="93"/>
         <source>None</source>
         <translation>None</translation>
     </message>
@@ -56,92 +61,90 @@
         <translation type="vanished">Genre: </translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="85"/>
+        <location filename="../QML/AlbumDetail.qml" line="90"/>
         <source>Album name</source>
         <translation>Album name</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="86"/>
+        <location filename="../QML/AlbumDetail.qml" line="91"/>
         <source>Author</source>
         <translation>Author</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="87"/>
+        <location filename="../QML/AlbumDetail.qml" line="92"/>
         <source>Year</source>
         <translation>Year</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="88"/>
+        <location filename="../QML/AlbumDetail.qml" line="93"/>
         <source>Genre</source>
         <translation>Genre</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="117"/>
+        <location filename="../QML/AlbumDetail.qml" line="128"/>
         <source>Edit album</source>
         <translation>Edit album</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="124"/>
+        <location filename="../QML/AlbumDetail.qml" line="136"/>
         <source>Delete album</source>
         <translation>Delete album</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="127"/>
         <source>album</source>
-        <translation>album</translation>
+        <translation type="vanished">album</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="144"/>
+        <location filename="../QML/AlbumDetail.qml" line="159"/>
         <source>Song name</source>
         <translation>Song name</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="150"/>
+        <location filename="../QML/AlbumDetail.qml" line="166"/>
         <source>Length</source>
         <translation>Length</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="159"/>
+        <location filename="../QML/AlbumDetail.qml" line="173"/>
         <source>Please use format 00:00</source>
         <translation>Please use format 00:00</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="168"/>
+        <location filename="../QML/AlbumDetail.qml" line="183"/>
         <source>Add song</source>
         <translation>Add song</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="212"/>
+        <location filename="../QML/AlbumDetail.qml" line="232"/>
         <source>Unknown</source>
         <translation>Unknown</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="220"/>
+        <location filename="../QML/AlbumDetail.qml" line="240"/>
         <source>00:00</source>
         <translation>00:00</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="227"/>
+        <location filename="../QML/AlbumDetail.qml" line="248"/>
         <source>Delete</source>
         <translation>Delete</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="232"/>
         <source>song</source>
-        <translation>song</translation>
+        <translation type="vanished">song</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="249"/>
+        <location filename="../QML/AlbumDetail.qml" line="271"/>
         <source>No songs found</source>
         <translation>No songs found</translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="265"/>
+        <location filename="../QML/AlbumDetail.qml" line="287"/>
         <source>Confirm</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../QML/AlbumDetail.qml" line="285"/>
+        <location filename="../QML/AlbumDetail.qml" line="307"/>
         <source>Are you sure you want to delete %1?</source>
         <translation>Are you sure you want to delete %1?</translation>
     </message>
@@ -149,7 +152,7 @@
 <context>
     <name>AlbumList</name>
     <message>
-        <location filename="../QML/AlbumList.qml" line="189"/>
+        <location filename="../QML/AlbumList.qml" line="211"/>
         <source>No albums found</source>
         <translation>No albums found</translation>
     </message>
@@ -177,22 +180,22 @@
         <translation>Czech</translation>
     </message>
     <message>
-        <location filename="../QML/AppMenuBar.qml" line="36"/>
+        <location filename="../QML/AppMenuBar.qml" line="35"/>
         <source>English</source>
         <translation>English</translation>
     </message>
     <message>
-        <location filename="../QML/AppMenuBar.qml" line="48"/>
+        <location filename="../QML/AppMenuBar.qml" line="46"/>
         <source>Theme</source>
         <translation>Theme</translation>
     </message>
     <message>
-        <location filename="../QML/AppMenuBar.qml" line="56"/>
+        <location filename="../QML/AppMenuBar.qml" line="54"/>
         <source>Light</source>
         <translation>Light</translation>
     </message>
     <message>
-        <location filename="../QML/AppMenuBar.qml" line="66"/>
+        <location filename="../QML/AppMenuBar.qml" line="63"/>
         <source>Dark</source>
         <translation>Dark</translation>
     </message>
@@ -208,31 +211,36 @@
 <context>
     <name>EditAlbumForm</name>
     <message>
-        <location filename="../QML/EditAlbumForm.qml" line="20"/>
-        <location filename="../QML/EditAlbumForm.qml" line="72"/>
+        <location filename="../QML/EditAlbumForm.qml" line="24"/>
+        <location filename="../QML/EditAlbumForm.qml" line="80"/>
         <source>Edit album</source>
         <translation>Edit album</translation>
     </message>
     <message>
-        <location filename="../QML/EditAlbumForm.qml" line="30"/>
+        <location filename="../QML/EditAlbumForm.qml" line="34"/>
         <source>Album name</source>
         <translation>Album name</translation>
     </message>
     <message>
-        <location filename="../QML/EditAlbumForm.qml" line="37"/>
+        <location filename="../QML/EditAlbumForm.qml" line="42"/>
         <source>Author</source>
         <translation>Author</translation>
     </message>
     <message>
-        <location filename="../QML/EditAlbumForm.qml" line="44"/>
+        <location filename="../QML/EditAlbumForm.qml" line="50"/>
         <source>Year</source>
         <translation>Year</translation>
+    </message>
+    <message>
+        <location filename="../QML/EditAlbumForm.qml" line="58"/>
+        <source>This field can only contains numbers.</source>
+        <translation type="unfinished">This field can only contains numbers.</translation>
     </message>
 </context>
 <context>
     <name>GenreSelectInput</name>
     <message>
-        <location filename="../QML/GenreSelectInput.qml" line="59"/>
+        <location filename="../QML/GenreSelectInput.qml" line="63"/>
         <source>The content cannot be null.</source>
         <translation>The content cannot be null.</translation>
     </message>
@@ -240,17 +248,17 @@
 <context>
     <name>ImageSelectInput</name>
     <message>
-        <location filename="../QML/ImageSelectInput.qml" line="18"/>
+        <location filename="../QML/ImageSelectInput.qml" line="21"/>
         <source>Select image</source>
         <translation>Select image</translation>
     </message>
     <message>
-        <location filename="../QML/ImageSelectInput.qml" line="24"/>
+        <location filename="../QML/ImageSelectInput.qml" line="27"/>
         <source>Choose image file</source>
         <translation>Choose image file</translation>
     </message>
     <message>
-        <location filename="../QML/ImageSelectInput.qml" line="35"/>
+        <location filename="../QML/ImageSelectInput.qml" line="40"/>
         <source>Clear</source>
         <translation>Clear</translation>
     </message>
@@ -258,17 +266,17 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../QML/Main.qml" line="15"/>
+        <location filename="../QML/Main.qml" line="18"/>
         <source>CD database</source>
         <translation>CD database</translation>
     </message>
     <message>
-        <location filename="../QML/Main.qml" line="115"/>
+        <location filename="../QML/Main.qml" line="128"/>
         <source>CD DATABASE</source>
         <translation>CD DATABASE</translation>
     </message>
     <message>
-        <location filename="../QML/Main.qml" line="131"/>
+        <location filename="../QML/Main.qml" line="143"/>
         <source>Add new album</source>
         <translation>Add new album</translation>
     </message>
@@ -276,22 +284,22 @@
 <context>
     <name>SearchPanel</name>
     <message>
-        <location filename="../QML/SearchPanel.qml" line="20"/>
+        <location filename="../QML/SearchPanel.qml" line="25"/>
         <source>Search author</source>
         <translation>Search author</translation>
     </message>
     <message>
-        <location filename="../QML/SearchPanel.qml" line="37"/>
+        <location filename="../QML/SearchPanel.qml" line="44"/>
         <source>Search year</source>
         <translation>Search year</translation>
     </message>
     <message>
-        <location filename="../QML/SearchPanel.qml" line="44"/>
+        <location filename="../QML/SearchPanel.qml" line="51"/>
         <source>Year has to be numeric.</source>
         <translation>Year has to be numeric.</translation>
     </message>
     <message>
-        <location filename="../QML/SearchPanel.qml" line="72"/>
+        <location filename="../QML/SearchPanel.qml" line="84"/>
         <source>Search</source>
         <translation>Search</translation>
     </message>
@@ -303,7 +311,7 @@
         <translation type="vanished">The content has to be 3-100 characters long.</translation>
     </message>
     <message>
-        <location filename="../QML/ValidationTextField.qml" line="57"/>
+        <location filename="../QML/ValidationTextField.qml" line="62"/>
         <source>The content has to be %1–%2 characters long.</source>
         <translation>The content has to be %1–%2 characters long.</translation>
     </message>

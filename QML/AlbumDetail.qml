@@ -8,6 +8,11 @@ Item {
     implicitHeight: layout.implicitHeight
 
     property var selectedModel // { id, name, author, year, genre }
+    onSelectedModelChanged: {
+        inputName.clear()
+        inputLength.clear()
+    }
+
     property var selectedSong // { id, name, length }
 
     // signals without deeper meaning
@@ -45,7 +50,7 @@ Item {
                     id: albumWrapperImage
 
                     fillMode: Image.PreserveAspectFit
-                    source: selectedModel && selectedModel.id ? imageFile.get_image(selectedModel.id) : ""
+                    source: selectedModel && selectedModel.id ? imageFile.getImage(selectedModel.id) : ""
                     asynchronous: true
                     cache: false
 
@@ -191,7 +196,7 @@ Item {
                         && inputName.valid
                         && inputLength.valid
                     ) {
-                        let songId = db.insert_song(selectedModel.id, inputName.text, inputLength.text)
+                        let songId = db.insertSong(selectedModel.id, inputName.text, inputLength.text)
                         inputName.clear()
                         inputLength.clear()
 
@@ -291,10 +296,14 @@ Item {
 
         onAccepted: {
            if(type === "album") {
-               db.delete_album(selectedModel.id)
+               let del = db.deleteAlbum(selectedModel.id)
+               if(del) {
+                   imageFile.deleteImage(selectedModel.id)
+               }
+
                albumDeleted(selectedModel.id)
            } else if(type === "song") {
-               db.delete_song(selectedSong.id)
+               db.deleteSong(selectedSong.id)
                songDeleted(selectedSong.id)
            }
        }

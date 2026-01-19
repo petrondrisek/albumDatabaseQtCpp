@@ -73,5 +73,7 @@ Item {
 
     function clear() {
         input.clear()
+        field.error = ""
+        field.valid = true
     }
 }

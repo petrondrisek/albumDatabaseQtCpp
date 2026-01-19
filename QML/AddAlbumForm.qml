@@ -51,7 +51,7 @@ Item {
 
                 if(!/^\d+$/.test(text)) {
                     valid = false;
-                    error = "This field can only contains numbers.";
+                    error = qsTr("This field can only contains numbers.");
                 }
 
                 return { valid, error };
@@ -96,6 +96,7 @@ Item {
                     inputAuthor.clear();
                     inputYear.clear();
                     selectGenre.clear();
+                    imageInput.clear();
                 }
             }
         }

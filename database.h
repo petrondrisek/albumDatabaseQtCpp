@@ -8,41 +8,30 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
+#include <QVariantList>
 
 class Database : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QVariantList albums READ get_albums NOTIFY albumsChanged)
-    Q_PROPERTY(QVariantList songs READ get_songs NOTIFY songsChanged)
+    Q_PROPERTY(QVariantList albums READ getAlbums NOTIFY albumsChanged)
+    Q_PROPERTY(QVariantList songs READ getSongs NOTIFY songsChanged)
 public:
-    enum class DbError {
-        None,
-        ConnectionError,
-        QueryError,
-        ValidationError
-    };
-    Q_ENUM(DbError)
-
     Database(QObject* parent = nullptr);
     ~Database() override;
     // Getters
-    QVariantList get_albums() const { return albums; }
-    QVariantList get_songs() const { return songs; }
+    QVariantList getAlbums() const { return albums; }
+    QVariantList getSongs() const { return songs; }
     // Create
-    Q_INVOKABLE int insert_album(const QString &name, const QString &author, const QString &year, const QString &genre);
-    Q_INVOKABLE int insert_song(const int &album_id, const QString &name, const QString &length);
+    Q_INVOKABLE int insertAlbum(const QString &name, const QString &author, const QString &year, const QString &genre);
+    Q_INVOKABLE int insertSong(const int &albumId, const QString &name, const QString &length);
     // Fetch from DB
-    Q_INVOKABLE void fetch_album_songs(const int &album_id);
-    Q_INVOKABLE void fetch_albums(const QString &author, const QString &year, const QString &genre);
+    Q_INVOKABLE void fetchSongs(const int &albumId);
+    Q_INVOKABLE void fetchAlbums(const QString &author, const QString &year, const QString &genre);
     // Delete
-    Q_INVOKABLE bool delete_album(const int &album_id);
-    Q_INVOKABLE bool delete_song(const int &song_id);
+    Q_INVOKABLE bool deleteAlbum(const int &albumId);
+    Q_INVOKABLE bool deleteSong(const int &songId);
     // Update
-    Q_INVOKABLE bool update_album(const int &album_id, const QString &name, const QString &author, const QString &year, const QString &genre);
-
-    // Error handling
-    DbError lastError() const;
-    QString lastErrorString() const;
+    Q_INVOKABLE bool updateAlbum(const int &albumId, const QString &name, const QString &author, const QString &year, const QString &genre);
 
 signals:
     void albumsChanged();
@@ -54,10 +43,15 @@ private:
     QString m_connectionName;
     QSqlDatabase db;
 
-    void init_database();
-    bool album_exists(const int &album_id);
+    void initDatabase();
 
-    DbError m_lastError;
+    // Helping methods
+    bool albumExists(const int &albumId, const QString &debugPrefix = "albumExists");
+    bool executeQuery(QSqlQuery &query, const QString &sqlCommand, const QString &error, const QString &debugPrefix = "executeQuery");
+    bool isDatabaseOn(const QString &debugPrefix = "isDatabaseOn");
+    QVariantList selectMany(QSqlQuery &preparedQuery, const QString &error, const QString &debugPrefix = "selectMany");
+    QVariantMap selectOne(QSqlQuery &preparedQuery, const QString &error, const QString &debugPrefix = "selectOne");
+
 };
 
 #endif // DATABASE_H

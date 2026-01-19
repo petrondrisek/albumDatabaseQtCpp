@@ -92,7 +92,7 @@ RowLayout {
 
     function search() {
         if(yearInput.valid && genreSelect.valid) {
-            db.fetch_albums(authorInput.text, yearInput.text, genreSelect.text);
+            db.fetchAlbums(authorInput.text, yearInput.text, genreSelect.text);
         }
     }
 }

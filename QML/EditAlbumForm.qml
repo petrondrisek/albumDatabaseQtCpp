@@ -7,8 +7,20 @@ Item {
     implicitHeight: layout.implicitHeight
     implicitWidth: layout.implicitWidth
 
+    property string imageBefore: ""
+
     property var selectedModel
-    signal submit(var name, var author, var year, var genre, var image)
+    onSelectedModelChanged: {
+        if(selectedModel && selectedModel.id) {
+            imageInput.imageUrl = imageFile.getImage(selectedModel.id)
+        } else {
+            imageInput.imageUrl = ""
+        }
+
+        root.imageBefore = imageInput.imageUrl //save to check on submit if imageUrl has changed.
+    }
+
+    signal submit(var name, var author, var year, var genre, var image, var imageChanged)
 
     ColumnLayout {
         anchors.fill: parent
@@ -55,7 +67,7 @@ Item {
 
                 if(!/^\d+$/.test(text)) {
                     valid = false;
-                    error = "This field can only contains numbers.";
+                    error = qsTr("This field can only contains numbers.");
                 }
 
                 return { valid, error };
@@ -73,7 +85,6 @@ Item {
             Layout.fillWidth: true
 
             id: imageInput
-            imageUrl: selectedModel && selectedModel.id ? imageFile.get_image(selectedModel.id) : ""
         }
 
         Button {
@@ -95,7 +106,8 @@ Item {
                         inputAuthor.text,
                         inputYear.text,
                         selectGenre.text,
-                        imageInput.imageUrl
+                        imageInput.imageUrl,
+                        imageInput.imageUrl !== root.imageBefore
                     );
                 }
             }

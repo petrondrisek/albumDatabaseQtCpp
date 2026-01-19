@@ -19,10 +19,15 @@ qt_add_translations(appCDDatabaseOndrisekQML
 qt_add_executable(appCDDatabaseOndrisekQML
     main.cpp
     database.cpp
+    database.h
     enums.cpp
+    enums.h
     imagefile.cpp
+    imagefile.h
     languagemanager.cpp
+    languagemanager.h
     thememanager.cpp
+    thememanager.h
 )
 
 set(QML_FILES
@@ -44,17 +49,6 @@ qt_add_qml_module(appCDDatabaseOndrisekQML
     URI CDDatabaseOndrisekQML
     VERSION 1.0
     QML_FILES ${QML_FILES}
-    SOURCES
-        database.h
-        database.cpp
-        enums.h
-        enums.cpp
-        imagefile.h
-        imagefile.cpp
-        languagemanager.h
-        languagemanager.cpp
-        thememanager.h
-        thememanager.cpp
 )
 
 set_target_properties(appCDDatabaseOndrisekQML PROPERTIES

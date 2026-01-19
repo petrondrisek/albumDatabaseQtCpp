@@ -7,6 +7,8 @@ Item {
     implicitHeight: layout.implicitHeight
     implicitWidth: layout.implicitWidth
 
+    id: root
+
     property string imageUrl: ""
 
     RowLayout {
@@ -75,6 +77,10 @@ Item {
                 }
             }
         }
+    }
+
+    function clear() {
+        root.imageUrl = ""
     }
 
 }

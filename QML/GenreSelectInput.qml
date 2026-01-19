@@ -72,5 +72,6 @@ Item {
 
     function clear() {
         genreSelect.currentIndex = 0
+        field.error = ""
     }
 }

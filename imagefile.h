@@ -9,12 +9,16 @@ class ImageFile: public QObject
     Q_OBJECT
 public:
     ImageFile(QObject *parent = nullptr);
-    Q_INVOKABLE void upload_image(const QString &path, const int &album_id);
-    Q_INVOKABLE QString get_image(const int &album_id);
-    Q_INVOKABLE bool delete_image(const int &album_id);
+    Q_INVOKABLE void uploadImage(const QString &path, const int &albumId);
+    Q_INVOKABLE QString getImage(const int &albumId);
+    Q_INVOKABLE bool deleteImage(const int &albumId);
+
+private:
+    QString m_imagesDir;
+    QString getImagePath(const int &albumId);
 
 signals:
-    void imageReady(int album_id);
+    void imageReady(int albumId);
 };
 
 #endif // IMAGEFILE_H
